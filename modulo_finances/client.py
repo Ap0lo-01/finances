@@ -57,3 +57,40 @@ class Client:
         total_balance = sum(account.balance for account in self.accounts)
         total_investments = sum(investment.calculate_value(datetime.now()) for investment in self.investments)
         return total_balance + total_investments
+
+    def generate_report(self) -> str:
+        """
+        Gera um relatório financeiro para o cliente.
+        
+        Returns:
+            str: Relatório financeiro do cliente.
+        """
+        report = f"Relatório Financeiro para {self.name}\n"
+        report += "Contas:\n"
+        for account in self.accounts:
+            report += f"  - {account.name}: R$ {account.balance:0.2f}\n"
+        report += "Investimentos:\n"
+        for investment in self.investments:
+            current_value = investment.calculate_value(datetime.now())
+            report += f"  - {investment.type}: R$ {current_value:0.2f}\n"
+        return report
+
+    def future_value_report(self, date: datetime) -> str:
+        """
+        Gera um relatório de projeção de rendimentos futuros para o cliente.
+        
+        Args:
+            date (datetime): Data futura para a projeção.
+        
+        Returns:
+            str: Relatório de projeção de rendimentos futuros.
+        """
+        report = f"Projeção de Rendimentos Futuros para {self.name} até {date}\n"
+        report += "Contas:\n"
+        for account in self.accounts:
+            report += f"  - {account.name}: R$ {account.balance:0.2f}\n"
+        report += "Investimentos:\n"
+        for investment in self.investments:
+            future_value = investment.calculate_value(date)
+            report += f"  - {investment.type}: R$ {future_value:0.2f}\n"
+        return report
