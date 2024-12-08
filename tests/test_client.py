@@ -7,50 +7,71 @@ from datetime import datetime, timedelta
 def test_client_initialization():
     """
     Testa a inicialização de um objeto Client.
-    
-    Verifica se o nome do cliente é atribuído corretamente e
-    se as listas de contas e investimentos são criadas.
     """
-    client = Client("John Doe")
-    assert client.name == "John Doe"
-    assert isinstance(client.accounts, list)
-    assert isinstance(client.investments, list)
+    cliente = Client("João Silva")
+    assert cliente.name == "João Silva"
+    assert isinstance(cliente.accounts, list)
+    assert isinstance(cliente.investments, list)
 
 def test_add_account():
     """
     Testa a adição de uma conta a um cliente.
-    
-    Verifica se a conta é criada e adicionada à lista de contas do cliente.
     """
-    client = Client("John Doe")
-    account = client.add_account("Main Account")
-    assert account.name == "Main Account"
-    assert account in client.accounts
+    cliente = Client("João Silva")
+    conta = cliente.add_account("Conta Principal")
+    assert conta.name == "Conta Principal"
+    assert conta in cliente.accounts
 
 def test_add_investment():
     """
     Testa a adição de um investimento a um cliente.
-    
-    Verifica se o investimento é adicionado à lista de investimentos do cliente.
     """
-    client = Client("John Doe")
-    investment = Investment("Stock", 1000.0, 0.05, datetime.now())
-    client.add_investment(investment)
-    assert investment in client.investments
+    cliente = Client("João Silva")
+    investimento = Investment("Ações", 1000.0, 0.05, datetime.now())
+    cliente.add_investment(investimento)
+    assert investimento in cliente.investments
 
 def test_get_net_worth():
     """
     Testa o cálculo do patrimônio líquido de um cliente.
-    
-    Verifica se a soma dos saldos das contas e o valor dos investimentos
-    resulta no valor correto.
     """
-    client = Client("John Doe")
-    account = client.add_account("Main Account")
-    account.add_transaction(1000.0, "Income", "Salary")
-    date_purchased = datetime.now() - timedelta(days=365)
-    investment = Investment("Stock", 1000.0, 0.05, date_purchased)
-    client.add_investment(investment)
-    net_worth = client.get_net_worth()
-    expected_value = 1000.0 + 1000.0 * ((1 + 0.05) ** 12)  # Saldo + 12 meses de crescimento do investimento
-    assert net_worth == pytest.approx(expected_value, 0.01)
+    cliente = Client("João Silva")
+    conta = cliente.add_account("Conta Principal")
+    conta.add_transaction(1000.0, "Renda", "Salário")
+    data_compra = datetime.now() - timedelta(days=365)
+    investimento = Investment("Ações", 1000.0, 0.05, data_compra)
+    cliente.add_investment(investimento)
+    patrimonio_liquido = cliente.get_net_worth()
+    valor_esperado = 1000.0 + 1000.0 * ((1 + 0.05) ** 12)  # Saldo + 12 meses de crescimento do investimento
+    assert patrimonio_liquido == pytest.approx(valor_esperado, 0.01)
+
+def test_generate_report():
+    """
+    Testa a geração de um relatório financeiro para um cliente.
+    """
+    cliente = Client("João Silva")
+    conta = cliente.add_account("Conta Principal")
+    conta.add_transaction(1000.0, "Renda", "Salário")
+    data_compra = datetime.now() - timedelta(days=365)
+    investimento = Investment("Ações", 1000.0, 0.05, data_compra)
+    cliente.add_investment(investimento)
+    relatorio = cliente.generate_report()
+    assert "Relatório Financeiro para João Silva" in relatorio
+    assert "Conta Principal: R$ 1000.00" in relatorio
+    assert "Ações: R$" in relatorio
+
+def test_future_value_report():
+    """
+    Testa a geração de um relatório de projeção de rendimentos futuros para um cliente.
+    """
+    cliente = Client("João Silva")
+    conta = cliente.add_account("Conta Principal")
+    conta.add_transaction(1000.0, "Renda", "Salário")
+    data_compra = datetime.now() - timedelta(days=365)
+    investimento = Investment("Ações", 1000.0, 0.05, data_compra)
+    cliente.add_investment(investimento)
+    data_futura = datetime.now() + timedelta(days=365)
+    relatorio = cliente.future_value_report(data_futura)
+    assert "Projeção de Rendimentos Futuros para João Silva até" in relatorio
+    assert "Conta Principal: R$ 1000.00" in relatorio
+    assert "Ações: R$" in relatorio
