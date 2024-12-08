@@ -1,0 +1,32 @@
+Relações entre as classes implementadas no módulo Finances:
+
+1. Classe Client
+   - Possui várias contas (Account) e investimentos (Investment).
+   - Métodos:
+     - add_account: Adiciona uma conta ao cliente.
+     - add_investment: Adiciona um investimento ao cliente.
+     - get_net_worth: Calcula o patrimônio líquido do cliente.
+     - generate_report: Gera um relatório financeiro do cliente.
+     - future_value_report: Gera um relatório de projeção de rendimentos futuros.
+
+2. Classe Account
+   - Gerencia transações (Transaction) para o cliente.
+   - Métodos:
+     - add_transaction: Adiciona uma transação e atualiza o saldo da conta.
+     - get_transactions: Filtra transações por data e categoria.
+
+3. Classe Transaction
+   - Representa transações financeiras.
+   - Métodos:
+     - __init__: Inicializa uma transação.
+     - __str__: Retorna a representação em string da transação.
+     - update: Atualiza os atributos da transação.
+
+4. Classe Investment
+   - Representa investimentos do cliente.
+   - Métodos:
+     - __init__: Inicializa um investimento.
+     - calculate_value: Calcula o valor atual do investimento.
+     - sell: Vende o investimento e deposita o valor em uma conta.
+
+Essas classes trabalham juntas para fornecer um sistema completo de gerenciamento de finanças pessoais.
