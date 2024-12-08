@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='modulo_finances',
+    name='finances',
     version='0.1',
     packages=find_packages(),
     install_requires=[],
     entry_points={},
-    author='Seu Nome',
-    author_email='seu_email@example.com',
+    author='Ap0lo-01',
+    author_email='limaapolo91@gmail.com',
     description='Um módulo para gerenciar finanças pessoais',
     license='MIT',
     keywords='finanças pessoais transações investimentos',
