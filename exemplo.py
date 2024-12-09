@@ -1,4 +1,4 @@
-from modulo_finances.client import Client
+from modulo_finances import Client, Account, Transaction, Investment
 from datetime import datetime
 
 # Cria um cliente
